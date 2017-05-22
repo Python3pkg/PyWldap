@@ -92,9 +92,9 @@ class MessageEntryIterator(object):
             dll.ber_free(self._berElem, 0)
 
     def __next__(self):  # pragma: no cover
-        return self.next()
+        return next(self)
 
-    def next(self):
+    def __next__(self):
         # Because of the first / next API asymmetry, we're always 'off by one',
         # so the previously fetched value is tested before moving on.
         if self._attribute is None:
@@ -145,9 +145,9 @@ class MessageIterator(object):
         self._current = dll.ldap_first_entry(self._ldap, message)
 
     def __next__(self):  # pragma: no cover
-        return self.next()
+        return next(self)
 
-    def next(self):
+    def __next__(self):
         # Because of the first / next API asymmetry, we're always 'off by one',
         # so the previously fetched value is tested before moving on.
         if not self._current:
